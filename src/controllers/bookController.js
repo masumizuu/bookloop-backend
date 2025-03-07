@@ -7,13 +7,14 @@ exports.getBooks = async (req, res) => {
         const models = await initModels(sequelize);
         const { Book } = models;
 
-        // Pagination & Search
-        const { page = 1, limit = 6, search = "" } = req.query;
+        const { page = 1, limit = 6, search = "", genre } = req.query;
+
         const offset = (page - 1) * limit;
 
-        const whereCondition = search
-            ? { title: { [sequelize.Op.like]: `%${search}%` } }
-            : {};
+        const whereCondition = {
+            ...(search ? { title: { [sequelize.Op.like]: `%${search}%` } } : {}),
+            ...(genre ? { genre } : {})  // Add this
+        };
 
         const books = await Book.findAndCountAll({
             where: whereCondition,
