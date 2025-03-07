@@ -33,8 +33,8 @@ const seedInitialData = async (models) => {
         const hashedPassword = await bcrypt.hash('admin123', 10);
 
         await User.create({
-            first_name: 'Admin',
-            last_name: 'User',
+            first_name: 'Champagne',
+            last_name: 'Gonzales',
             email: 'admin@bookloop.com',
             password: hashedPassword, // Now it's hashed
             user_type: 'ADMIN'
