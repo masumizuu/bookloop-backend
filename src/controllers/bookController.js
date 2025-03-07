@@ -1,5 +1,7 @@
 const initModels = require('../models');
 const { getSequelizeInstance } = require('../config/db');
+const { Op } = require('sequelize'); //Bryan's comment: import Op from sequelize
+
 
 exports.getBooks = async (req, res) => {
     try {
@@ -12,7 +14,7 @@ exports.getBooks = async (req, res) => {
         const offset = (page - 1) * limit;
 
         const whereCondition = {
-            ...(search ? { title: { [sequelize.Op.like]: `%${search}%` } } : {}),
+            ...(search ? { title: { [Op.like]: `%${search}%` } } : {}), //Bryan's comment: instead of using sequelize.Op.like, just use Op.like
             ...(genre ? { genre } : {})  // Add this
         };
 
