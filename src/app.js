@@ -11,8 +11,6 @@ app.use(express.json());
 
 app.use('/api/auth', require('./routes/userRoutes'));
 app.use('/api/books', require('./routes/bookRoutes'));
-app.use('/api/shelf', require('./routes/shelfRoutes'));
-app.use('/api/saved', require('./routes/savedRoutes'));
 app.use('/api/borrow', require('./routes/borrowRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes')); // Protected
 
