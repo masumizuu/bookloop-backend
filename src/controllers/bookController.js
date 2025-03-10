@@ -153,3 +153,24 @@ exports.denyBookRequest = async (req, res) => {
         res.status(500).json({ error: 'Failed to deny book request' });
     }
 };
+
+exports.getBooksByOwner = async (req, res) => {
+    try {
+        const sequelize = getSequelizeInstance();
+        const models = await initModels(sequelize);
+        const { Book } = models;
+
+        const { owner_id } = req.params;
+
+        const books = await Book.findAll({
+            where: {
+                owner_id: owner_id
+            }
+        });
+
+        res.json({ books });
+    } catch (error) {
+        console.error("Error fetching books by owner:", error);
+        res.status(500).json({ error: "Failed to retrieve books by owner" });
+    }
+};
