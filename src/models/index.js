@@ -5,7 +5,7 @@ async function initModels(sequelize) {
         User: require('./User')(sequelize, Sequelize),
         Book: require('./Book')(sequelize, Sequelize),
         Shelf: require('./Shelf')(sequelize, Sequelize),
-        Saved: require('./Saved')(sequelize, Sequelize),
+        // Saved: require('./Saved')(sequelize, Sequelize),
         BorrowTransaction: require('./BorrowTransaction')(sequelize, Sequelize),
     };
 
@@ -16,14 +16,14 @@ async function initModels(sequelize) {
     models.User.hasOne(models.Shelf, { foreignKey: 'user_id', onDelete: 'CASCADE' });
     models.Shelf.belongsTo(models.User, { foreignKey: 'user_id' });
 
-    models.User.hasOne(models.Saved, { foreignKey: 'user_id', onDelete: 'CASCADE' });
-    models.Saved.belongsTo(models.User, { foreignKey: 'user_id' });
+    // models.User.hasOne(models.Saved, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+    // models.Saved.belongsTo(models.User, { foreignKey: 'user_id' });
 
     models.Shelf.belongsToMany(models.Book, { through: 'ShelfBooks', foreignKey: 'shelf_id' });
     models.Book.belongsToMany(models.Shelf, { through: 'ShelfBooks', foreignKey: 'book_id' });
 
-    models.Saved.belongsToMany(models.Book, { through: 'SavedBooks', foreignKey: 'saved_id' });
-    models.Book.belongsToMany(models.Saved, { through: 'SavedBooks', foreignKey: 'book_id' });
+    // models.Saved.belongsToMany(models.Book, { through: 'SavedBooks', foreignKey: 'saved_id' });
+    // models.Book.belongsToMany(models.Saved, { through: 'SavedBooks', foreignKey: 'book_id' });
 
     models.User.hasMany(models.BorrowTransaction, { foreignKey: 'user_id', onDelete: 'CASCADE' });
     models.BorrowTransaction.belongsTo(models.User, { foreignKey: 'user_id' });
